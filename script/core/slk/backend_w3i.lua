@@ -34,11 +34,18 @@ function mt:get(key)
     return value
 end
 
+
 function mt:read_head(data, version)
     self:current(lang.w3i.MAP)
     data.file_ver   = version
     data.map_ver    = self:get(lang.w3i.MAP_VERSION)
     data.editor_ver = self:get(lang.w3i.WE_VERSION)
+    if version >= 28 then
+        data.ver_major      = self:get(lang.w3i.VER_MAJOR)
+        data.ver_minor      = self:get(lang.w3i.VER_MINOR)
+        data.ver_revision   = self:get(lang.w3i.VER_REVISION)
+        data.ver_build      = self:get(lang.w3i.VER_BUILD)
+    end
     data.map_name   = self:get(lang.w3i.MAP_NAME)
     data.author     = self:get(lang.w3i.AUTHOR_NAME)
     data.des        = self:get(lang.w3i.MAP_DESC)
@@ -96,7 +103,7 @@ function mt:read_head(data, version)
     data.prologue_screen_title    = self:get(lang.w3i.TITLE)
     data.prologue_screen_subtitle = self:get(lang.w3i.SUBTITLE)
 
-    if version == 25 then
+    if version >= 25 then
         self:current(lang.w3i.FOG)
         data.terrain_fog = self:get(lang.w3i.TYPE)
         data.fog_start_z = self:get(lang.w3i.START_Z)
@@ -115,6 +122,11 @@ function mt:read_head(data, version)
         data.water_green       = self:get(lang.w3i.WATER_COLOR)[2]
         data.water_blue        = self:get(lang.w3i.WATER_COLOR)[3]
         data.water_alpha       = self:get(lang.w3i.WATER_COLOR)[4]
+    end
+
+    if version >= 28 then
+        self:current(lang.w3i.SCRIPT)
+        data.script_language   = self:get(lang.w3i.SCRIPT_LANGUAGE)
     end
 end
 
@@ -257,7 +269,11 @@ function mt:read_randomitem(data)
 end
 
 function mt:add_head(data, version)
-    self:add('lllzzzz', version, data.map_ver, data.editor_ver, data.map_name, data.author, data.des, data.player_rec)
+    if version >= 28 then
+        self:add('lllllllzzzz', version, data.map_ver, data.editor_ver, data.ver_major, data.ver_minor, data.ver_revision, data.ver_build, data.map_name, data.author, data.des, data.player_rec)
+    else
+        self:add('lllzzzz', version, data.map_ver, data.editor_ver, data.map_name, data.author, data.des, data.player_rec)
+    end
 
     self:add('ffffffff', data.camera_bound_1, data.camera_bound_2, data.camera_bound_3, data.camera_bound_4, data.camera_bound_5, data.camera_bound_6, data.camera_bound_7, data.camera_bound_8)
 
@@ -265,7 +281,7 @@ function mt:add_head(data, version)
 
     self:add('lllc1', data.map_width, data.map_height, data.map_flag, data.map_main_ground_type)
 
-    if version == 25 then
+    if version >= 25 then
         self:add('lzzzz', data.loading_screen_id, data.loading_screen_path, data.loading_screen_text, data.loading_screen_title, data.loading_screen_subtitle)
 
         self:add('l', data.game_data_set)
@@ -281,6 +297,9 @@ function mt:add_head(data, version)
         self:add('lzzz', data.loading_screen_id, data.loading_screen_text, data.loading_screen_title, data.loading_screen_subtitle)
 
         self:add('lzzz', data.prologue_screen_id, data.prologue_screen_text, data.prologue_screen_title, data.prologue_screen_subtitle)
+    end
+    if version >= 28 then
+        self:add('l', data.script_language)
     end
 end
 
@@ -390,7 +409,24 @@ return function (self, data, wts)
 
     local data = {}
     local version = tbl.data[lang.w3i.MAP][lang.w3i.FILE_VERSION]
-    if version == 25 then
+    
+    if version == 28 then
+        tbl:read_head(data, version)
+        tbl:read_player(data)
+        tbl:read_force(data)
+        tbl:read_upgrade(data)
+        tbl:read_tech(data)
+        tbl:read_randomgroup(data)
+        tbl:read_randomitem(data)
+    
+        tbl:add_head(data, version)
+        tbl:add_player(data)
+        tbl:add_force(data)
+        tbl:add_upgrade(data)
+        tbl:add_tech(data)
+        tbl:add_randomgroup(data)
+        tbl:add_randomitem(data)
+    elseif version == 25 then
         tbl:read_head(data, version)
         tbl:read_player(data)
         tbl:read_force(data)

@@ -45,16 +45,32 @@ function mt:get_version(chunk)
 end
 
 function mt:add_head(chunk, version)
-    chunk[lang.w3i.MAP] = {
-        [lang.w3i.FILE_VERSION] = version,
-        [lang.w3i.MAP_VERSION]  = self:unpack 'l',
-        [lang.w3i.WE_VERSION]   = self:unpack 'l',
-        [lang.w3i.MAP_NAME]     = w2l:load_wts(self.wts, (self:unpack 'z')),
-        [lang.w3i.AUTHOR_NAME]  = w2l:load_wts(self.wts, (self:unpack 'z')),
-        [lang.w3i.MAP_DESC]     = w2l:load_wts(self.wts, (self:unpack 'z')),
-        [lang.w3i.PLAYER_DESC]  = w2l:load_wts(self.wts, (self:unpack 'z')),
-    }
-    
+    if version >= 28 then
+        chunk[lang.w3i.MAP] = {
+            [lang.w3i.FILE_VERSION] = version,
+            [lang.w3i.MAP_VERSION]  = self:unpack 'l',
+            [lang.w3i.WE_VERSION]   = self:unpack 'l',
+            [lang.w3i.VER_MAJOR]    = self:unpack 'l',
+            [lang.w3i.VER_MINOR]    = self:unpack 'l',
+            [lang.w3i.VER_REVISION] = self:unpack 'l',
+            [lang.w3i.VER_BUILD]    = self:unpack 'l',
+            [lang.w3i.MAP_NAME]     = w2l:load_wts(self.wts, (self:unpack 'z')),
+            [lang.w3i.AUTHOR_NAME]  = w2l:load_wts(self.wts, (self:unpack 'z')),
+            [lang.w3i.MAP_DESC]     = w2l:load_wts(self.wts, (self:unpack 'z')),
+            [lang.w3i.PLAYER_DESC]  = w2l:load_wts(self.wts, (self:unpack 'z')),
+        }
+    else
+        chunk[lang.w3i.MAP] = {
+            [lang.w3i.FILE_VERSION] = version,
+            [lang.w3i.MAP_VERSION]  = self:unpack 'l',
+            [lang.w3i.WE_VERSION]   = self:unpack 'l',
+            [lang.w3i.MAP_NAME]     = w2l:load_wts(self.wts, (self:unpack 'z')),
+            [lang.w3i.AUTHOR_NAME]  = w2l:load_wts(self.wts, (self:unpack 'z')),
+            [lang.w3i.MAP_DESC]     = w2l:load_wts(self.wts, (self:unpack 'z')),
+            [lang.w3i.PLAYER_DESC]  = w2l:load_wts(self.wts, (self:unpack 'z')),
+        }
+    end
+
     chunk[lang.w3i.CAMERA] = {
         [lang.w3i.CAMERA_BOUND]      = pack(self:unpack 'ffffffff'),
         [lang.w3i.CAMERA_COMPLEMENT] = pack(self:unpack 'llll'),
@@ -93,7 +109,7 @@ function mt:add_head(chunk, version)
 
     chunk[lang.w3i.MAP_INFO][lang.w3i.MAP_MAIN_GROUND] = self:unpack 'c1'
 
-    if version == 25 then
+    if version >= 25 then
         chunk[lang.w3i.LOADING_SCREEN] = {
             [lang.w3i.ID]       = self:unpack 'l',
             [lang.w3i.PATH]     = w2l:load_wts(self.wts, (self:unpack 'z')),
@@ -125,6 +141,7 @@ function mt:add_head(chunk, version)
             [lang.w3i.LIGHT]       = self:unpack 'c1',
             [lang.w3i.WATER_COLOR] = pack(self:unpack 'BBBB'),
         }
+
     elseif version == 18 then
         chunk[lang.w3i.LOADING_SCREEN] = {
             [lang.w3i.ID]          = self:unpack 'l',
@@ -139,6 +156,10 @@ function mt:add_head(chunk, version)
             [lang.w3i.TITLE]    = w2l:load_wts(self.wts, (self:unpack 'z')),
             [lang.w3i.SUBTITLE] = w2l:load_wts(self.wts, (self:unpack 'z')),
         }
+    end
+    
+    if version >= 28 then
+        chunk[lang.w3i.SCRIPT][lang.w3i.SCRIPT_LANGUAGE] = self:unpack 'l'
     end
 end
 
@@ -292,7 +313,15 @@ return function (w2l_, content, wts)
     tbl.wts     = wts
 
     local version = tbl:get_version(data)
-    if version == 25 then
+    if version == 28 then
+        tbl:add_head(data, version)
+        tbl:add_player(data)
+        tbl:add_force(data)
+        tbl:add_upgrade(data)
+        tbl:add_tech(data)
+        tbl:add_randomgroup(data)
+        tbl:add_randomitem(data)
+    elseif version == 25 then
         tbl:add_head(data, version)
         tbl:add_player(data)
         tbl:add_force(data)

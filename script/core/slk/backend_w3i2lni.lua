@@ -69,6 +69,10 @@ function mt:add_head(data)
     self:title(lang.w3i.MAP, data)
     self:value(lang.w3i.FILE_VERSION)
     self:value(lang.w3i.MAP_VERSION)
+    self:value(lang.w3i.VER_MAJOR)
+    self:value(lang.w3i.VER_MINOR)
+    self:value(lang.w3i.VER_REVISION)
+    self:value(lang.w3i.VER_BUILD)
     self:value(lang.w3i.WE_VERSION)
     self:value(lang.w3i.MAP_NAME)
     self:value(lang.w3i.AUTHOR_NAME)
@@ -135,6 +139,9 @@ function mt:add_head(data)
     self:value(lang.w3i.SOUND)
     self:value(lang.w3i.LIGHT)
     self:value(lang.w3i.WATER_COLOR)
+
+    self:title(lang.w3i.SCRIPT, data)
+    self:value(lang.w3i.SCRIPT_LANGUAGE)
 
     return data
 end
