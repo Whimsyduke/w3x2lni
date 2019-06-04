@@ -225,9 +225,9 @@ elseif arg[1] == 'enUS' then
     zippack()
     command('config', 'global.lang=enUS')
 elseif arg[1] == 'ci' then
-    release_path = root / 'make' / 'ci' / 'zhCN'
-    make_zhCN()
-    unit_test()
+    -- release_path = root / 'make' / 'ci' / 'zhCN'
+    -- make_zhCN()
+    -- unit_test()
     release_path = root / 'make' / 'ci' / 'enUS'
     make_enUS()
     unit_test()

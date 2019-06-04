@@ -240,7 +240,7 @@ return function(w2l_, loader)
     local txt = {}
     local used = {}
     local misc = {}
-    local count = 0
+    local count = 0    
     w2l.progress:start(0.3)
     for _, filename in pairs(w2l.info.txt) do
         w2l:parse_txt(loader(filename), filename, txt)
