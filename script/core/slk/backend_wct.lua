@@ -6,6 +6,7 @@ local function pack(fmt, ...)
 end
 
 local function pack_head()
+    pack('l', 0x80000004)
     pack('l', 1)
 end
 

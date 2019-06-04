@@ -151,7 +151,7 @@ function mt:add_head(chunk, version)
         }
 
         chunk[lang.w3i.PROLOGUE] = {
-            [lang.w3i.ID]          = self:unpack 'l',
+            [lang.w3i.ID]       = self:unpack 'l',
             [lang.w3i.TEXT]     = w2l:load_wts(self.wts, (self:unpack 'z')),
             [lang.w3i.TITLE]    = w2l:load_wts(self.wts, (self:unpack 'z')),
             [lang.w3i.SUBTITLE] = w2l:load_wts(self.wts, (self:unpack 'z')),
@@ -159,7 +159,9 @@ function mt:add_head(chunk, version)
     end
     
     if version >= 28 then
-        chunk[lang.w3i.SCRIPT][lang.w3i.SCRIPT_LANGUAGE] = self:unpack 'l'
+        chunk[lang.w3i.SCRIPT] = {
+        [lang.w3i.SCRIPT_LANGUAGE]  = self:unpack 'l',
+        }
     end
 end
 

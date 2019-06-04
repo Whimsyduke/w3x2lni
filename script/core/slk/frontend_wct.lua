@@ -11,6 +11,9 @@ end
 
 local function read_head()
     local ver = unpack 'l'
+    if (ver < 0) then
+        ver = unpack 'l'
+    end
     assert(ver == 1, lang.script.UNSUPPORTED_WCT)
 end
 

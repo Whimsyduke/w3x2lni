@@ -401,12 +401,12 @@ return function (w2l_, slk)
     end
     w2l.progress:finish()
 
-    w2l.progress:start(0.8)
-    if not w2l.setting.remove_we_only then
-        w2l.messager.text(lang.script.CONVERT_WTG)
-        convert_wtg(w2l)
-    end
-    w2l.progress:finish()
+    -- w2l.progress:start(0.8)
+    -- if not w2l.setting.remove_we_only then
+    --     w2l.messager.text(lang.script.CONVERT_WTG)
+    --     convert_wtg(w2l)
+    -- end
+    -- w2l.progress:finish()
 
     if w2l.setting.optimize_jass then
         w2l.messager.text(lang.script.OPTIMIZE_JASS)
