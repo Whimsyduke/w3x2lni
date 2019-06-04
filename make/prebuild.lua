@@ -41,7 +41,7 @@ local function main()
     local slk_melee  = makefile(w2l, 'Melee')
     local slk_custom = makefile(w2l, 'Custom')
     
-    config.global.data = "enUS-1.27.1"
+    config.global.data = "enUS-1.31.1"
     makefile(w2l, 'Melee')
     makefile(w2l, 'Custom')
 

@@ -71,7 +71,7 @@ mt.info = {
 
 Full event, check [here][DataFull] for the defination of Full. In this event you can change object data in an easy way to manipulate the final results.
 
-> Data format of Full data refers to `data/enUS-1.27.1/prebuilt/Custom`
+> Data format of Full data refers to `data/enUS-1.31.1/prebuilt/Custom`
 
 ```lua
 -- Let all abilities cost no mana and have no cooldown
@@ -108,7 +108,7 @@ There's no dedicated interfaces for plugins, instead that the plugins act as par
 
 #### slk
 
-Object editor data table, refers to `data/enUS-1.27.1/prebuilt/Custom`
+Object editor data table, refers to `data/enUS-1.31.1/prebuilt/Custom`
 
 ```lua
 for type, list in pairs(w2l.slk) do

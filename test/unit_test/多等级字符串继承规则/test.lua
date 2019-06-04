@@ -3,7 +3,7 @@ local config = require 'share.config'
 local names
 if config.global.data == 'zhCN-1.24.4' then
     names = {'铁甲', '钢甲', '重金甲'}
-elseif config.global.data == 'enUS-1.27.1' then
+elseif config.global.data == 'enUS-1.31.1' then
     names = {'Iron Plating', 'Steel Plating', 'Mithril Plating'}
 else
     error(('不支持的版本[%s]'):format(config.global.data))
