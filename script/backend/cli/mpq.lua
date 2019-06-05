@@ -173,7 +173,6 @@ return function ()
 
     fs.remove(root / 'log' / 'report.log')
     input = input_war3(command[2])
-
     if not war3:open(input) then
         w2l.messager.text(lang.script.NEED_WAR3_DIR)
         return

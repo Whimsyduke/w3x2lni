@@ -13,6 +13,7 @@ local function set_pos(...)
 end
 
 local function unpack(str)
+    local unpack_buf
     return set_pos(string_unpack(str, unpack_buf, unpack_pos))
 end
 
@@ -69,6 +70,7 @@ end
 
 local function unpack_special()
     local id = unpack 'l'
+    local obj
     obj[id] = {
         ['未知'] = unpack 'l',
         ['位置'] = {unpack 'll'},
