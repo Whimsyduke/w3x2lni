@@ -1,0 +1,60 @@
+[1/4] C:/Users/hwu.c/Documents/Code/OtherSource/actboy168/luamake/luamake.exe lua make/ffi_dynasm.lua
+[2/4] Compile C build/msvc/obj/ffi/call.obj
+C:\Users\hwu.c\Documents\Code\OtherSource\actboy168\w3x2lni\3rd\bee.lua\3rd\luaffi\src\ffi.h(389): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\hwu.c\Documents\Code\OtherSource\actboy168\w3x2lni\3rd\bee.lua\3rd\luaffi\src\call_x86.h(296): warning C4244: 'initializing': conversion from 'lua_Unsigned' to 'size_t', possible loss of data
+C:\Users\hwu.c\Documents\Code\OtherSource\actboy168\w3x2lni\3rd\bee.lua\3rd\luaffi\src\call_x86.h(864): warning C4244: '=': conversion from 'lua_Unsigned' to 'size_t', possible loss of data
+[3/4] Link SharedLibrary build/msvc/bin/ffi.dll
+   Creating library build/msvc/bin/ffi.lib and object build/msvc/bin/ffi.exp
+Generating code
+Finished generating code
+[4/4] C:/Users/hwu.c/Documents/Code/OtherSource/actboy168/luamake/luamake.exe lua make/install.lua
+生成中文版，目录为：	C:/Users/hwu.c/Documents/Code/OtherSource/actboy168/w3x2lni/make/ci/zhCN
+正在清空目录：	C:/Users/hwu.c/Documents/Code/OtherSource/actboy168/w3x2lni/make/ci/zhCN
+正在复制文件：	bin
+正在复制文件：	data/zhCN-1.31.1
+正在复制文件：	script
+正在复制文件：	config.ini
+正在复制文件：	w3x2lni.exe
+正在复制文件：	w2l.exe
+正在执行命令:	config	global.data=zhCN-1.31.1
+正在执行命令:	config	global.data_ui=${YDWE}
+正在执行命令:	config	global.data_meta=${DEFAULT}
+正在执行命令:	config	global.data_wes=${DEFAULT}
+正在执行命令:	template
+正在复制文件：	test
+正在单元测试...
+正在测试[ID冲突的对象将文本放回obj]
+正在测试[misc数据的清理与保留]
+正在测试[txt的数据需要合并]
+正在测试[不生成多余的misc对象]
+正在测试[不生成空数组的count]
+正在测试[保留只在misc中存在的对象]
+正在测试[多等级字符串继承规则]
+正在测试[忽略垃圾数据]
+正在测试[忽略无效的等级数据]
+C:\Users\hwu.c\Documents\Code\OtherSource\actboy168\w3x2lni\make\ci\zhCN\bin\w3x2lni-lua.exe: ...Source\actboy168\w3x2lni\make\ci\zhCN\test\unit_test.lua:338: 
+
+<忽略无效的等级数据>[ability.AOr3] 文本不同：
+
+[AOr3]
+Art=ReplaceableTextures\PassiveButtons\PASBTNReincarnation.tga
+Buttonpos=3,2
+EffectArt=Abilities\Spells\Orc\Reincarnation\ReincarnationTarget.mdl
+Name=Name
+ResearchArt=ReplaceableTextures\CommandButtons\BTNReincarnation.tga
+Researchbuttonpos=3
+Researchhotkey=R
+Researchtip=Researchtip
+Researchubertip=Researchubertip
+Tip=Tip
+Ubertip=Ubertip
+
+stack traceback:
+	[C]: in function 'assert'
+	...Source\actboy168\w3x2lni\make\ci\zhCN\test\unit_test.lua:338: in function <...Source\actboy168\w3x2lni\make\ci\zhCN\test\unit_test.lua:336>
+	(...tail calls...)
+	...zhCN/test/unit_test/忽略无效的等级数据/test.lua:9: in local 'f'
+	...Source\actboy168\w3x2lni\make\ci\zhCN\test\unit_test.lua:377: in local 'do_test'
+	...Source\actboy168\w3x2lni\make\ci\zhCN\test\unit_test.lua:399: in main chunk
+	[C]: in ?
+

@@ -82,7 +82,7 @@ local function copy_game_data_with_language(lang ,src, subpath, dst, paths)
 end
 
 local function copy_file_extract(lang, src, dst)
-    local paths = {'Scripts\\Common.j','Scripts\\Blizzard.j','UI\\MiscData.txt','Units\\MiscGame.txt','Units\\MiscData.txt','Units\\AbilityMetaData.slk','Units\\DestructableMetaData.slk','Units\\AbilitybuffMetaData.slk','Units\\UpgradeMetaData.slk','Units\\UnitMetaData.slk','Units\\MiscMetaData.slk','Units\\CommandFunc.txt','Units\\CommandStrings.txt','Units\\UnitGlobalStrings.txt','Units\\UpgradeEffectMetaData.slk','Doodads\\DoodadMetaData.slk','UI\\UnitEditorData.txt','UI\\WorldEditStrings.txt','UI\\WorldEditGameStrings.txt','UI\\TriggerData.txt','UI\\TriggerStrings.txt'}
+    local paths = {'Scripts\\Common.j','Scripts\\Blizzard.j','UI\\MiscData.txt','Units\\MiscGame.txt','Units\\MiscData.txt','Units\\AbilityMetaData.slk','Units\\DestructableMetaData.slk','Units\\AbilitybuffMetaData.slk','Units\\UpgradeMetaData.slk','Units\\UnitMetaData.slk','Units\\MiscMetaData.slk','Units\\CommandFunc.txt','Units\\CommandStrings.txt','Units\\UnitGlobalStrings.txt','Units\\UpgradeEffectMetaData.slk','Doodads\\DoodadMetaData.slk','UI\\UnitEditorData.txt','UI\\WorldEditStrings.txt','UI\\WorldEditGameStrings.txt'}
     for type, slks in pairs(w2l.info.slk) do
         for _, name in ipairs(slks) do
             paths[#paths+1] = name
@@ -95,6 +95,8 @@ local function copy_file_extract(lang, src, dst)
     copy_game_data_with_language(lang, src, '_Balance\\Custom_V0.w3mod\\', dst / 'mpq\\Custom_V0', paths)
     copy_game_data_with_language(lang, src, '_Balance\\Custom_V1.w3mod\\', dst / 'mpq\\Custom_V1', paths)
     copy_game_data_with_language(lang, src, "_Balance\\Melee_V0.w3mod", dst / 'mpq\\Melee_V0', paths)
+    paths = {'UI\\TriggerData.txt','UI\\TriggerStrings.txt'}
+    copy_game_data_with_language(lang, src, '', dst, paths)
 end
 
 local function extract()
@@ -195,6 +197,10 @@ local function loader(name)
     return war3:readfile(name)
 end
 
+local function loader_file(name)
+    return io.load(output / 'mpq' / name)
+end
+
 local function input_war3(path)
     if not path then
         path = '.'
@@ -247,9 +253,17 @@ return function ()
         report_fail()
         create_metadata(w2l)
         w2l.progress:finish()
+
+        w2l.cache_metadata = w2l:parse_lni(io.load(output / 'prebuilt' / 'metadata.ini'))
+        fs.create_directories(output / 'prebuilt')
+        local keydata = prebuilt_keydata(w2l, loader)
+        local search = prebuilt_search(w2l, loader)
+        io.save(output / 'prebuilt' / 'keydata.ini', keydata)
+        io.save(output / 'prebuilt' / 'search.ini', search)
+        w2l.cache_metadata = nil
     else
-        war3.name = 'zhCN-1.31.1'
         war3.languag = 'zhCN'
+        war3.name = war3.languag .. '-1.31.1'
         output = root / 'data' / war3.name
         w2l.progress:start(0.1)
 
@@ -267,20 +281,21 @@ return function ()
             end
         end
         w2l.progress:finish()
+        
         w2l.progress:start(0.3)
         w2l.messager.text(lang.script.EXPORT_MPQ)
         copy_file_extract(war3.languag, input, output)
         create_metadata(w2l)
         w2l.progress:finish()
+        
+        w2l.cache_metadata = w2l:parse_lni(io.load(output / 'prebuilt' / 'metadata.ini'))
+        fs.create_directories(output / 'prebuilt')
+        local keydata = prebuilt_keydata(w2l, loader_file)
+        local search = prebuilt_search(w2l, loader_file)
+        io.save(output / 'prebuilt' / 'keydata.ini', keydata)
+        io.save(output / 'prebuilt' / 'search.ini', search)
+        w2l.cache_metadata = nil
     end
-
-    w2l.cache_metadata = w2l:parse_lni(io.load(output / 'prebuilt' / 'metadata.ini'))
-    fs.create_directories(output / 'prebuilt')
-    local keydata = prebuilt_keydata(w2l, loader)
-    local search = prebuilt_search(w2l, loader)
-    io.save(output / 'prebuilt' / 'keydata.ini', keydata)
-    io.save(output / 'prebuilt' / 'search.ini', search)
-    w2l.cache_metadata = nil
 
     io.save(output / 'version', table.concat(data_version, '\r\n'))
     local config = require 'share.config'

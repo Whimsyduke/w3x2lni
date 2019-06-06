@@ -1,7 +1,7 @@
 local config = require 'share.config'
 
 local names
-if config.global.data == 'zhCN-1.24.4' then
+if config.global.data == 'zhCN-1.31.1' then
     names = {'铁甲', '钢甲', '重金甲'}
 elseif config.global.data == 'enUS-1.31.1' then
     names = {'Iron Plating', 'Steel Plating', 'Mithril Plating'}
@@ -17,7 +17,7 @@ w2l:set_setting
 }
 
 function w2l.input_ar:get(path)
-    if config.global.data == 'zhCN-1.24.4' then
+    if config.global.data == 'zhCN-1.31.1' then
         return read('zhCN-' .. path)
     else
         return read('enUS-' .. path)

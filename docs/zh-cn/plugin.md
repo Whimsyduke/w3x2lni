@@ -66,7 +66,7 @@ mt.info = {
 #### on_full
 完整数据（Full）事件，关于完整数据的定义见[这里][完整数据]。在该事件中可以简单方便的修改物编数据从而修改转换后的结果。
 
-> 完整数据内的数据格式可以参考`data\zhCN-1.24.4\prebuilt\Custom`
+> 完整数据内的数据格式可以参考`data\zhCN-1.31.1\prebuilt\Custom`
 
 ```lua
 -- 让所有技能无冷却无消耗
@@ -100,7 +100,7 @@ end
 w3x2lni没有为插件准备专用的接口，而是将插件当做了代码的一部分，在调用插件的事件时将当前会话作为参数传入。也就是说，插件可以任意使用w3x2lni内部的函数，任意修改会话状态，你需要自己确保转换不会出错。这里提供一些常用的内部方法（假定传入的会话保存在变量`w2l`中）：
 
 #### slk
-物编数据表，数据结构参考`data\zhCN-1.24.4\prebuilt\Custom`
+物编数据表，数据结构参考`data\zhCN-1.31.1\prebuilt\Custom`
 ```lua
 for type, list in pairs(w2l.slk) do
     for id, obj in pairs(list) do

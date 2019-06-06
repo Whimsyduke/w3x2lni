@@ -58,11 +58,37 @@
             }
         },
         {
-            "label": "生成游戏数据",
+            "label": "生成游戏数据zhCN-1.31",
             "command": "w2l.exe",
             "args": [
                 "mpq",
-                "\"D:\\Resource\\branches\\v1.31.x\""
+                "\"D:\\Resource\\branches\\v1.31.x\"",
+                "zhCN"
+            ],
+            "presentation": {
+                "panel": "new",
+                "clear": true
+            }
+        },
+        {
+            "label": "生成游戏数据enUS-1.31",
+            "command": "w2l.exe",
+            "args": [
+                "mpq",
+                "\"D:\\Resource\\branches\\v1.31.x\"",
+                "enUS"
+            ],
+            "presentation": {
+                "panel": "new",
+                "clear": true
+            }
+        },
+        {
+            "label": "生成游戏数据1.27",
+            "command": "w2l.exe",
+            "args": [
+                "mpq",
+                "\"D:\\Blizzard\\Warcraft III Frozen Throne 1.27a publish\""
             ],
             "presentation": {
                 "panel": "new",

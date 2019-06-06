@@ -33,7 +33,7 @@ local function main()
     fs.create_directories(root / 'core' / 'defined')
 
     config.global.lang = "${AUTO}"
-    config.global.data = "zhCN-1.24.4"
+    config.global.data = "zhCN-1.31.1"
     
     local meta = prebuilt_metadata(w2l, nil, loader)
     io.save(fs.current_path() / 'core' / 'defined' / 'metadata.ini', meta)
@@ -45,7 +45,7 @@ local function main()
     makefile(w2l, 'Melee')
     makefile(w2l, 'Custom')
 
-    config.global.data = "zhCN-1.24.4"
+    config.global.data = "zhCN-1.31.1"
     maketemplate(w2l, 'Melee',  slk_melee)
     maketemplate(w2l, 'Custom', slk_custom)
 

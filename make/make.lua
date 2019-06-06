@@ -181,12 +181,12 @@ local function make_zhCN()
     print('生成中文版，目录为：', release_path:string())
     create_directory()
     copy_files('bin')
-    copy_files('data/zhCN-1.24.4')
+    copy_files('data/zhCN-1.31.1')
     copy_files('script')
     copy_files('config.ini')
     copy_files('w3x2lni.exe')
     copy_files('w2l.exe')
-    command('config', 'global.data=zhCN-1.24.4')
+    command('config', 'global.data=zhCN-1.31.1')
     command('config', 'global.data_ui=${YDWE}')
     command('config', 'global.data_meta=${DEFAULT}')
     command('config', 'global.data_wes=${DEFAULT}')
@@ -225,9 +225,9 @@ elseif arg[1] == 'enUS' then
     zippack()
     command('config', 'global.lang=enUS')
 elseif arg[1] == 'ci' then
-    -- release_path = root / 'make' / 'ci' / 'zhCN'
-    -- make_zhCN()
-    -- unit_test()
+    release_path = root / 'make' / 'ci' / 'zhCN'
+    make_zhCN()
+    unit_test()
     release_path = root / 'make' / 'ci' / 'enUS'
     make_enUS()
     unit_test()
