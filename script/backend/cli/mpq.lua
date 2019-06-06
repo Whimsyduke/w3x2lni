@@ -267,7 +267,11 @@ return function ()
             end
         end
         w2l.progress:finish()
+        w2l.progress:start(0.3)
+        w2l.messager.text(lang.script.EXPORT_MPQ)
         copy_file_extract(war3.languag, input, output)
+        create_metadata(w2l)
+        w2l.progress:finish()
     end
 
     w2l.cache_metadata = w2l:parse_lni(io.load(output / 'prebuilt' / 'metadata.ini'))

@@ -167,7 +167,7 @@ local function is_enable(meta, type)
     return true
 end
 
-local characters = {'A','B','C','D','E','F','G','H','I'}
+local characters = {'A','B','C','D','E','F','G','H','I','J'}
 
 local function parse_id(w2l, metadata, id, meta, type, has_level)
     local key = meta.field
@@ -341,7 +341,7 @@ return function(w2l_, fixer_, loader)
 
     codemapped = get_codemapped(w2l, loader)
     typedefine = get_typedefine(w2l, loader)
-    
+
     local metadata = {}
     for _, type in ipairs {'ability', 'buff', 'unit', 'item', 'upgrade', 'doodad', 'destructable', 'misc'} do
         create_metadata(w2l, type, metadata, loader)
