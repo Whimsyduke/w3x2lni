@@ -14,7 +14,7 @@
     "tasks": [
         {
             "label": "发布中文版",
-            "command": "chcp 65001 && luamake",
+            "command": "chcp 65001 && ..\\luamake\\luamake.exe",
             "args": [
                 "lua",
                 "make\\make.lua",
@@ -27,7 +27,7 @@
         },
         {
             "label": "发布英文版",
-            "command": "chcp 65001 && luamake",
+            "command": "chcp 65001 && ..\\luamake\\luamake.exe",
             "args": [
                 "lua",
                 "make\\make.lua",
@@ -40,7 +40,7 @@
         },
         {
             "label": "编译C++代码",
-            "command": "luamake",
+            "command": "..\\luamake\\luamake.exe",
             "presentation": {
                 "panel": "new",
                 "clear": true
@@ -56,6 +56,19 @@
                 "panel": "new",
                 "clear": true
             }
+        },
+        {
+            "label": "生成游戏数据",
+            "command": "w2l.exe",
+            "args": [
+                "mpq",
+                "\"D:\\Resource\\branches\\v1.31.x\""
+            ],
+            "presentation": {
+                "panel": "new",
+                "clear": true
+            }
         }
     ]
 }
+ 

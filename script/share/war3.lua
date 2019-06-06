@@ -81,6 +81,7 @@ function m:open(path)
     local lg = mpq_language(self:readfile('config.txt'))
     if lg then
         self.name = lg .. '-' .. war3_ver
+        self.languag = lg
     end
     return true
 end

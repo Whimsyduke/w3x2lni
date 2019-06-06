@@ -57,6 +57,46 @@ local function report_fail()
     end
 end
 
+local function copy_file (src, dst, path)
+    local dst_path = dst / path
+    local src_path = src / path
+    if fs.exists(src_path) then
+        print(src_path, dst_path)
+        local folder = fs.path(dst_path):parent_path()
+        if not fs.exists(folder) then
+            fs.create_directories(folder)
+        end
+        fs.copy_file(src_path, dst_path, true)
+    end
+end
+
+local function copy_files_in_folder(src, dst, paths)
+    for _, path in ipairs(paths) do
+        copy_file(src, dst, path)
+    end
+end
+
+local function copy_game_data_with_language(lang ,src, subpath, dst, paths)
+    copy_files_in_folder(fs.path(src .. '\\War3.w3mod\\' .. subpath), dst, paths)
+    copy_files_in_folder(fs.path(src .. '\\War3.w3mod\\_Locales\\'.. lang .. '.w3mod'), dst, paths)
+end
+
+local function copy_file_extract(lang, src, dst)
+    local paths = {'Scripts\\Common.j','Scripts\\Blizzard.j','UI\\MiscData.txt','Units\\MiscGame.txt','Units\\MiscData.txt','Units\\AbilityMetaData.slk','Units\\DestructableMetaData.slk','Units\\AbilitybuffMetaData.slk','Units\\UpgradeMetaData.slk','Units\\UnitMetaData.slk','Units\\MiscMetaData.slk','Units\\CommandFunc.txt','Units\\CommandStrings.txt','Units\\UnitGlobalStrings.txt','Units\\UpgradeEffectMetaData.slk','Doodads\\DoodadMetaData.slk','UI\\UnitEditorData.txt','UI\\WorldEditStrings.txt','UI\\WorldEditGameStrings.txt','UI\\TriggerData.txt','UI\\TriggerStrings.txt'}
+    for type, slks in pairs(w2l.info.slk) do
+        for _, name in ipairs(slks) do
+            paths[#paths+1] = name
+        end
+    end
+    for _, name in ipairs(w2l.info.txt) do
+        paths[#paths+1] = name
+    end
+    copy_game_data_with_language(lang, src, '', dst / 'mpq', paths)
+    copy_game_data_with_language(lang, src, '_Balance\\Custom_V0.w3mod\\', dst / 'mpq\\Custom_V0', paths)
+    copy_game_data_with_language(lang, src, '_Balance\\Custom_V1.w3mod\\', dst / 'mpq\\Custom_V1', paths)
+    copy_game_data_with_language(lang, src, "_Balance\\Melee_V0.w3mod", dst / 'mpq\\Melee_V0', paths)
+end
+
 local function extract()
     for _, dir in ipairs {'', 'Custom_V1\\'} do
         extract_mpq(dir .. 'Scripts\\Common.j')
@@ -173,38 +213,62 @@ return function ()
 
     fs.remove(root / 'log' / 'report.log')
     input = input_war3(command[2])
+    local needExport = true
     if not war3:open(input) then
         w2l.messager.text(lang.script.NEED_WAR3_DIR)
-        return
+        needExport = false
     end
-    if not war3.name then
+    if needExport and (not war3.name) then
         w2l.messager.text(lang.script.LOAD_WAR3_LANG_FAILED)
-        return
+        needExport = false
     end
-    output = root / 'data' / war3.name
+    if needExport then
+        output = root / 'data' / war3.name
 
-    w2l.progress:start(0.1)
-    w2l.messager.text(lang.script.CLEAN_DIR)
-    if fs.exists(output) then
-        if not task(fs.remove_all, output) then
-            w2l.messager.text(lang.script.CREATE_DIR_FAILED:format(output:string()))
-            return
+        w2l.progress:start(0.1)
+        w2l.messager.text(lang.script.CLEAN_DIR)
+        if fs.exists(output) then
+            if not task(fs.remove_all, output) then
+                w2l.messager.text(lang.script.CREATE_DIR_FAILED:format(output:string() .. '[MPQ1]'))
+                return
+            end
         end
-    end
-    if not fs.exists(output) then
-        if not task(fs.create_directories, output) then
-            w2l.messager.text(lang.script.CREATE_DIR_FAILED:format(output:string()))
-            return
+        if not fs.exists(output) then
+            if not task(fs.create_directories, output) then
+                w2l.messager.text(lang.script.CREATE_DIR_FAILED:format(output:string() .. '[MPQ2]'))
+                return
+            end
         end
-    end
-    w2l.progress:finish()
+        w2l.progress:finish()
 
-    w2l.progress:start(0.3)
-    w2l.messager.text(lang.script.EXPORT_MPQ)
-    extract()
-    report_fail()
-    create_metadata(w2l)
-    w2l.progress:finish()
+        w2l.progress:start(0.3)
+        w2l.messager.text(lang.script.EXPORT_MPQ)
+        extract()
+        report_fail()
+        create_metadata(w2l)
+        w2l.progress:finish()
+    else
+        war3.name = 'zhCN-1.31.1'
+        war3.languag = 'zhCN'
+        output = root / 'data' / war3.name
+        w2l.progress:start(0.1)
+
+        w2l.messager.text(lang.script.CLEAN_DIR)
+        if fs.exists(output) then
+            if not task(fs.remove_all, output) then
+                w2l.messager.text(lang.script.CREATE_DIR_FAILED:format(output:string() .. '[FOLDER1]'))
+                return
+            end
+        end
+        if not fs.exists(output) then
+            if not task(fs.create_directories, output) then
+                w2l.messager.text(lang.script.CREATE_DIR_FAILED:format(output:string() .. '[FOLDER2]'))
+                return
+            end
+        end
+        w2l.progress:finish()
+        copy_file_extract(war3.languag, input, output)
+    end
 
     w2l.cache_metadata = w2l:parse_lni(io.load(output / 'prebuilt' / 'metadata.ini'))
     fs.create_directories(output / 'prebuilt')

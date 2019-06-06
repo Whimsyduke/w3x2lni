@@ -8,3 +8,4 @@
 /script/share/gitlog.lua
 /*.w3x
 *.exe
+/script/%SystemDrive%
