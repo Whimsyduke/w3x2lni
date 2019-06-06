@@ -1,9 +1,9 @@
 [AOr3]
-Art=ReplaceableTextures\PassiveButtons\PASBTNReincarnation.blp
+Art=ReplaceableTextures\PassiveButtons\PASBTNReincarnation.tga
 Buttonpos=3,2
 EffectArt=Abilities\Spells\Orc\Reincarnation\ReincarnationTarget.mdl
 Name=Name
-ResearchArt=ReplaceableTextures\CommandButtons\BTNReincarnation.blp
+ResearchArt=ReplaceableTextures\CommandButtons\BTNReincarnation.tga
 Researchbuttonpos=3
 Researchhotkey=R
 Researchtip=Researchtip

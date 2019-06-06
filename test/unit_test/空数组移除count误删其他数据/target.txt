@@ -1,5 +1,5 @@
 [R000]
-Art=ReplaceableTextures\CommandButtons\BTNPackBeast.blp
+Art=ReplaceableTextures\CommandButtons\BTNPackBeast.tga
 Buttonpos=3
 Hotkey=B
 Name=测试
