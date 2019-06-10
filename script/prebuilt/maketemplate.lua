@@ -12,7 +12,9 @@ return function (w2l, version, slk)
         version   = version,
     }
     w2l.progress:start(0.3)
+    print ('maketemplate.lua:B', slk, w2l:get_default(true))
     slk = slk or w2l:get_default(true)
+    print ('maketemplate.lua:A', slk, w2l:get_default(true))
     w2l.progress:finish()
     fs.create_directories(template_path)
     w2l.progress:start(1.0)

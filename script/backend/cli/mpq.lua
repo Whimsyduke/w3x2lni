@@ -61,7 +61,6 @@ local function copy_file (src, dst, path)
     local dst_path = dst / path
     local src_path = src / path
     if fs.exists(src_path) then
-        print(src_path, dst_path)
         local folder = fs.path(dst_path):parent_path()
         if not fs.exists(folder) then
             fs.create_directories(folder)
