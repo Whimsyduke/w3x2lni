@@ -118,7 +118,7 @@ local function unit_test()
     else
         print('单位测试完成')
     end
-    remove_files('test')
+    -- remove_files('test')
 end
 
 local function command(...)
@@ -225,11 +225,11 @@ elseif arg[1] == 'enUS' then
     zippack()
     command('config', 'global.lang=enUS')
 elseif arg[1] == 'ci' then
-    release_path = root / 'make' / 'ci' / 'zhCN'
-    make_zhCN()
-    unit_test()
     release_path = root / 'make' / 'ci' / 'enUS'
     make_enUS()
+    unit_test()
+    release_path = root / 'make' / 'ci' / 'zhCN'
+    make_zhCN()
     unit_test()
 end
 

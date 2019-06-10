@@ -262,7 +262,7 @@ return function ()
         io.save(output / 'prebuilt' / 'search.ini', search)
         w2l.cache_metadata = nil
     else
-        war3.languag = 'enUS'
+        war3.languag = 'zhCN'
         war3.name = war3.languag .. '-1.31.1'
         output = root / 'data' / war3.name
         w2l.progress:start(0.1)

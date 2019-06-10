@@ -335,7 +335,7 @@ end
 
 function mt:compare_string(str1, str2)
     local name = self._path:filename():string()
-    assert(trim(str1) == trim(str2), ('\n\n<%s>[%s.%s] 文本不同：\n\n%s\n'):format(name, self._type, self._id, trim(str1)))
+    assert(trim(str1) == trim(str2), ('\n\n<%s>[%s.%s] 文本不同：\n\n[Data]\n%s\n\n[Example]\n%s\n'):format(name, self._type, self._id, trim(str1), trim(str2)))
 end
 
 function mt:compare_value(v1, v2)
