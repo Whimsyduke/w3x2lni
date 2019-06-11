@@ -118,7 +118,7 @@ local function unit_test()
     else
         print('单位测试完成')
     end
-    -- remove_files('test')
+    remove_files('test')
 end
 
 local function command(...)
@@ -187,9 +187,10 @@ local function make_zhCN()
     copy_files('w3x2lni.exe')
     copy_files('w2l.exe')
     command('config', 'global.data=zhCN-1.31.1')
-    command('config', 'global.data_ui=${YDWE}')
-    command('config', 'global.data_meta=${DEFAULT}')
-    command('config', 'global.data_wes=${DEFAULT}')
+    command('config', 'global.data_ui=${DATA}')
+    command('config', 'global.data_meta=${DATA}')
+    command('config', 'global.data_wes=${DATA}')
+    command('config', 'slk.slk_doodad=false')
     command('template')
 end
 

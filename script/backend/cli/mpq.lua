@@ -220,11 +220,11 @@ return function ()
     input = input_war3(command[2])
     local needExport = true
     if not war3:open(input) then
-        w2l.messager.text(lang.script.NEED_WAR3_DIR)
+        -- w2l.messager.text(lang.script.NEED_WAR3_DIR)
         needExport = false
     end
     if needExport and (not war3.name) then
-        w2l.messager.text(lang.script.LOAD_WAR3_LANG_FAILED)
+        -- w2l.messager.text(lang.script.LOAD_WAR3_LANG_FAILED)
         needExport = false
     end
     if needExport then
